@@ -22,10 +22,7 @@ public class TestBase {
 
     @BeforeAll
     static void beforeAll() {
-        config = ConfigFactory.create(WebConfig.class, System.getProperties());
-        projectConfig = new ProjectConfiguration();
-        projectConfig.setConfig(config);
-
+        ProjectConfiguration.setConfig();
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
     }
 

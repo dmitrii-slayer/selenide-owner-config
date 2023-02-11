@@ -1,6 +1,7 @@
 package config;
 
 import com.codeborne.selenide.Configuration;
+import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.Map;
@@ -8,17 +9,17 @@ import java.util.Map;
 
 public class ProjectConfiguration {
 
-    public void setConfig(WebConfig webConfig) {
-        Configuration.baseUrl = webConfig.getBaseUrl();
-        Configuration.browser = webConfig.getBrowserName();
-        Configuration.browserSize = webConfig.getBrowserSize();
-//        Configuration.pageLoadTimeout = webConfig.getPageLoadTimeout();
-//        Configuration.timeout = webConfig.getTimeout();
-//        Configuration.headless = webConfig.isHeadless();
+    public static void setConfig() {
+        WebConfig config = ConfigFactory.create(WebConfig.class, System.getProperties());
+        Configuration.baseUrl = config.getBaseUrl();
+        Configuration.browser = config.getBrowserName();
+        Configuration.browserSize = config.getBrowserSize();
+        Configuration.pageLoadTimeout = config.getPageLoadTimeout();
+        Configuration.timeout = config.getTimeout();
 
-        if (webConfig.isRemote()) {
-            Configuration.browserVersion = webConfig.getBrowserVersion();
-            Configuration.remote = webConfig.getRemoteUrl();
+        if ((config.getEnv()).equals("remote")) {
+            Configuration.browserVersion = config.getBrowserVersion();
+            Configuration.remote = config.getRemoteUrl();
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                     "enableVNC", true,

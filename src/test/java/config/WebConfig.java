@@ -3,10 +3,15 @@ package config;
 import org.aeonbits.owner.Config;
 
 
+@Config.LoadPolicy(Config.LoadType.FIRST)
 @Config.Sources({
-        "system:properties",
-        "classpath:${env}.properties"})
+        "classpath:${env}.properties",
+        "classpath:local.properties"})
 public interface WebConfig extends Config {
+
+    @Key("env")
+    @DefaultValue("local")
+    String getEnv();
 
     @Key("browserName")
     String getBrowserName();
@@ -20,19 +25,13 @@ public interface WebConfig extends Config {
     @Key("browserSize")
     String getBrowserSize();
 
-    @Key("isRemote")
-    @DefaultValue("false")
-    Boolean isRemote();
-
     @Key("remoteUrl")
     String getRemoteUrl();
 
-//    @Key("pageLoadTimeout")
-//    Long getPageLoadTimeout();
-//
-//    @Key("timeout")
-//    Long getTimeout();
-//
-//    @Key("headless")
-//    Boolean isHeadless();
+    @Key("pageLoadTimeout")
+    Long getPageLoadTimeout();
+
+    @Key("timeout")
+    Long getTimeout();
+
 }

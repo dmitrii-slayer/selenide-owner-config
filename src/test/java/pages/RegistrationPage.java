@@ -2,12 +2,12 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.selector.ByText;
-
 import pages.components.CalendarComponent;
 import pages.components.PictureUploader;
 import pages.components.RegisterResultsModule;
 
-import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationPage {
